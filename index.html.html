@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunrise English Boarding School - Official App</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                
+                <!-- School Logo & Name -->
+                <div class="flex items-center space-x-3 text-center md:text-left">
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-amber-600 font-bold text-2xl shadow-md border-2 border-amber-200 shrink-0">
+                        <i class="fa-solid font-bold fa-sun text-yellow-500 text-3xl animate-spin-slow"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-extrabold tracking-wide drop-shadow-sm">
+                            SUNRISE ENGLISH BOARDING SCHOOL
+                        </h1>
+                        <p class="text-xs sm:text-sm text-amber-100 font-medium flex items-center justify-center md:justify-start gap-1">
+                            <i class="fa-solid fa-graduation-cap"></i> Knowledge • Character • Excellence
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Principal & Status Badge -->
+                <div class="flex flex-col sm:flex-row items-center gap-3">
+                    <div class="bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/20 text-xs sm:text-sm">
+                        <span class="text-amber-200">Principal:</span> 
+                        <span class="font-semibold text-white">Santosh Shah</span>
+                    </div>
+
+                    <!-- Offline/Online Status Indicator -->
+                    <div id="connectionStatus" class="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500 text-white shadow-sm transition-all duration-300">
+                        <span class="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
+                        <span id="statusText">Online Mode</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="bg-amber-700/40 backdrop-blur-sm border-t border-amber-400/30 overflow-x-auto">
+            <div class="max-w-7xl mx-auto px-2 flex space-x-1 sm:space-x-2 py-2 text-xs sm:text-sm font-medium whitespace-nowrap">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-1.5 rounded-md text-white hover:bg-amber-600/60 active bg-amber-800/80 transition-all">
+                    <i class="fa-solid fa-house mr-1"></i> Home
+                </button>
+                <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-3 py-1.5 rounded-md text-amber-100 hover:text-white hover:bg-amber-600/60 transition-all">
+                    <i class="fa-solid fa-school mr-1"></i> About Us
+                </button>
+                <button onclick="switchTab('principal')" id="nav-principal" class="nav-btn px-3 py-1.5 rounded-md text-amber-100 hover:text-white hover:bg-amber-600/60 transition-all">
+                    <i class="fa-solid fa-user-tie mr-1"></i> Principal's Message
+                </button>
+                <button onclick="switchTab('notice')" id="nav-notice" class="nav-btn px-3 py-1.5 rounded-md text-amber-100 hover:text-white hover:bg-amber-600/60 transition-all">
+                    <i class="fa-solid fa-bullhorn mr-1"></i> Notice Board
+                </button>
+                <button onclick="switchTab('classes')" id="nav-classes" class="nav-btn px-3 py-1.5 rounded-md text-amber-100 hover:text-white hover:bg-amber-600/60 transition-all">
+                    <i class="fa-solid fa-book-open mr-1"></i> Courses / Classes
+                </button>
+                <button onclick="switchTab('student-fee')" id="nav-student-fee" class="nav-btn px-3 py-1.5 rounded-md text-amber-100 hover:text-white hover:bg-amber-600/60 transition-all">
+                    <i class="fa-solid fa-file-invoice-dollar mr-1"></i> Student Info & Fee
+                </button>
+                <button onclick="switchTab('facilities')" id="nav-facilities" class="nav-btn px-3 py-1.5 rounded-md text-amber-100 hover:text-white hover:bg-amber-600/60 transition-all">
+                    <i class="fa-solid fa-building mr-1"></i> Facilities
+                </button>
+                <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn px-3 py-1.5 rounded-md text-amber-100 hover:text-white hover:bg-amber-600/60 transition-all">
+                    <i class="fa-solid fa-phone mr-1"></i> Contact Us
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6">
+
+        <!-- 1. HOME TAB -->
+        <section id="tab-home" class="tab-content active space-y-6">
+            <!-- Hero Banner -->
+            <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-amber-600 to-orange-600 text-white p-8 sm:p-12 shadow-xl">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-semibold mb-3">Welcome to Sunrise English Boarding School</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold leading-tight mb-4">Empowering Minds for a Brighter Future</h2>
+                    <p class="text-amber-100 text-sm sm:text-base mb-6">Providing high-quality education, modern learning facilities, and holistic development for every student.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="switchTab('notice')" class="bg-white text-orange-600 font-bold px-5 py-2.5 rounded-lg shadow hover:bg-amber-50 transition">
+                            View Notices
+                        </button>
+                        <button onclick="switchTab('student-fee')" class="bg-amber-800/50 hover:bg-amber-800/80 border border-white/30 text-white font-medium px-5 py-2.5 rounded-lg transition">
+                            Check Student Fee
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xl mb-3">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-1">Expert Faculty</h3>
+                    <p class="text-xs text-slate-500">Dedicated and qualified teachers committed to student success.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center text-xl mb-3">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-1">Modern Computer Lab</h3>
+                    <p class="text-xs text-slate-500">Practical digital education with updated IT infrastructure.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center text-xl mb-3">
+                        <i class="fa-solid fa-wifi-slash"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-1">Offline Accessible</h3>
+                    <p class="text-xs text-slate-500">Access notices and fee data offline anytime on your device.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xl mb-3">
+                        <i class="fa-solid fa-futbol"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-1">Sports & Activities</h3>
+                    <p class="text-xs text-slate-500">Focus on physical fitness, sports events, and extra activities.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT US TAB -->
+        <section id="tab-about" class="tab-content space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-amber-600 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-school"></i> About Sunrise English Boarding School
+                </h2>
+                <div class="space-y-4 text-slate-600 leading-relaxed text-sm sm:text-base">
+                    <p>
+                        <strong>Sunrise English Boarding School</strong> is a premier educational institution dedicated to providing quality education in an encouraging and nurturing environment.
+                    </p>
+                    <p>
+                        Our mission is to foster academic excellence, character building, and creative thinking. We emphasize disciplined learning alongside co-curricular activities to ensure overall development.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                        <div class="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                            <h4 class="font-bold text-amber-800 mb-1"><i class="fa-solid fa-eye mr-2"></i> Our Vision</h4>
+                            <p class="text-xs text-amber-900">To inspire students to become responsible, innovative, and successful global citizens.</p>
+                        </div>
+                        <div class="p-4 bg-orange-50 rounded-xl border border-orange-200">
+                            <h4 class="font-bold text-orange-800 mb-1"><i class="fa-solid fa-bullseye mr-2"></i> Our Mission</h4>
+                            <p class="text-xs text-orange-900">To deliver balanced learning through modern teaching methods, strong moral values, and active sports programs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PRINCIPAL'S MESSAGE TAB -->
+        <section id="tab-principal" class="tab-content space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm max-w-4xl mx-auto">
+                <div class="flex flex-col sm:flex-row items-center gap-6 mb-6">
+                    <div class="w-32 h-32 bg-amber-100 rounded-full border-4 border-amber-500 flex items-center justify-center text-amber-600 text-5xl shadow-md shrink-0">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <h2 class="text-2xl font-bold text-slate-800">Santosh Shah</h2>
+                        <p class="text-amber-600 font-semibold text-sm">Principal, Sunrise English Boarding School</p>
+                        <span class="inline-block mt-2 px-3 py-1 bg-amber-100 text-amber-800 text-xs rounded-full">School Leader</span>
+                    </div>
+                </div>
+                <div class="bg-amber-50/60 p-6 rounded-xl border border-amber-200 text-slate-700 italic space-y-3 leading-relaxed">
+                    <p class="text-sm sm:text-base">
+                        "Dear Parents, Students, and Well-Wishers,"
+                    </p>
+                    <p class="text-sm sm:text-base">
+                        It gives me immense pleasure to welcome you to <strong>Sunrise English Boarding School</strong>. Education is not merely about learning facts, but training the mind to think critically and act responsibly.
+                    </p>
+                    <p class="text-sm sm:text-base">
+                        At Sunrise English Boarding School, our dedicated teachers and staff strive to create an engaging and safe environment where every child feels valued and motivated. We welcome you to join us in building a strong foundation for your child's future.
+                    </p>
+                    <p class="text-sm font-semibold text-right not-italic text-amber-800 mt-4">
+                        — Santosh Shah (Principal)
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. NOTICE BOARD (LOCALSTORAGE ACTIVE) -->
+        <section id="tab-notice" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-amber-600 flex items-center gap-2">
+                            <i class="fa-solid fa-bullhorn"></i> Interactive Notice Board
+                        </h2>
+                        <p class="text-xs text-slate-500">Notices are saved locally and available even when offline.</p>
+                    </div>
+                    <button onclick="toggleNoticeForm()" class="bg-amber-600 text-white hover:bg-amber-700 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2 shadow transition">
+                        <i class="fa-solid fa-plus"></i> Add New Notice
+                    </button>
+                </div>
+
+                <!-- Add Notice Form (Hidden by default) -->
+                <div id="noticeForm" class="hidden bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6 space-y-3">
+                    <h3 class="font-semibold text-slate-700 text-sm">Post New Notice</h3>
+                    <input type="text" id="noticeTitle" placeholder="Notice Title..." class="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                    <textarea id="noticeBody" rows="3" placeholder="Notice details..." class="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none"></textarea>
+                    <div class="flex justify-end gap-2">
+                        <button onclick="toggleNoticeForm()" class="px-3 py-1.5 text-xs bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300">Cancel</button>
+                        <button onclick="saveNotice()" class="px-4 py-1.5 text-xs bg-amber-600 text-white rounded-lg hover:bg-amber-700 font-semibold">Publish Notice</button>
+                    </div>
+                </div>
+
+                <!-- Notice List Container -->
+                <div id="noticeList" class="space-y-4">
+                    <!-- Dynamic Notices will load here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. COURSES / CLASSES -->
+        <section id="tab-classes" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-amber-600 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-book-open"></i> Classes & Curriculum
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="border border-slate-200 rounded-xl p-5 hover:border-amber-400 transition bg-amber-50/30">
+                        <div class="text-amber-600 font-bold text-lg mb-2"><i class="fa-solid fa-child mr-2"></i> Pre-Primary Level</div>
+                        <p class="text-xs text-slate-600 mb-3">Nursery, LKG, UKG</p>
+                        <ul class="text-xs text-slate-500 space-y-1 list-disc list-inside">
+                            <li>Play-based learning</li>
+                            <li>Basic Literacy & Numeracy</li>
+                            <li>Creative Arts & Rhymes</li>
+                        </ul>
+                    </div>
+                    <div class="border border-slate-200 rounded-xl p-5 hover:border-amber-400 transition bg-orange-50/30">
+                        <div class="text-orange-600 font-bold text-lg mb-2"><i class="fa-solid fa-school-flag mr-2"></i> Primary Level</div>
+                        <p class="text-xs text-slate-600 mb-3">Class 1 to Class 5</p>
+                        <ul class="text-xs text-slate-500 space-y-1 list-disc list-inside">
+                            <li>English & Nepali Proficiency</li>
+                            <li>Mathematics & General Science</li>
+                            <li>Computer Basics</li>
+                        </ul>
+                    </div>
+                    <div class="border border-slate-200 rounded-xl p-5 hover:border-amber-400 transition bg-emerald-50/30">
+                        <div class="text-emerald-600 font-bold text-lg mb-2"><i class="fa-solid fa-graduation-cap mr-2"></i> Lower Secondary</div>
+                        <p class="text-xs text-slate-600 mb-3">Class 6 to Class 8</p>
+                        <ul class="text-xs text-slate-500 space-y-1 list-disc list-inside">
+                            <li>Advanced Science & Math</li>
+                            <li>Social Studies & Moral Education</li>
+                            <li>Practical Computer Skills</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. STUDENT INFO & FEE INQUIRY -->
+        <section id="tab-student-fee" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-amber-600 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Student Info & Fee Inquiry (Offline Simulation)
+                </h2>
+                <p class="text-xs text-slate-500 mb-6">Search student fee details or add mock records locally.</p>
+
+                <!-- Search & Add Form -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="md:col-span-2 flex gap-2">
+                        <input type="text" id="searchRoll" placeholder="Enter Roll No or Name (e.g., 101, Aarav)" class="w-full p-2.5 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                        <button onclick="searchStudent()" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shrink-0">
+                            Search
+                        </button>
+                    </div>
+                    <button onclick="toggleStudentForm()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded-lg text-sm font-semibold">
+                        + Add Student Record
+                    </button>
+                </div>
+
+                <!-- Add Student Form -->
+                <div id="studentForm" class="hidden bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                    <input type="text" id="stuName" placeholder="Student Name" class="p-2 border rounded-lg">
+                    <input type="text" id="stuRoll" placeholder="Roll No / ID" class="p-2 border rounded-lg">
+                    <input type="text" id="stuClass" placeholder="Class (e.g. Class 5)" class="p-2 border rounded-lg">
+                    <input type="number" id="stuFee" placeholder="Pending Fee (NPR)" class="p-2 border rounded-lg">
+                    <div class="sm:col-span-2 flex justify-end gap-2 mt-2">
+                        <button onclick="toggleStudentForm()" class="px-3 py-1 bg-slate-200 text-xs rounded-lg">Cancel</button>
+                        <button onclick="addStudent()" class="px-4 py-1 bg-amber-600 text-white text-xs font-semibold rounded-lg">Save Record</button>
+                    </div>
+                </div>
+
+                <!-- Student Fee Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                                <th class="p-3">Roll ID</th>
+                                <th class="p-3">Student Name</th>
+                                <th class="p-3">Class</th>
+                                <th class="p-3">Pending Fee</th>
+                                <th class="p-3 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody">
+                            <!-- Loaded Dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. FACILITIES -->
+        <section id="tab-facilities" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="text-2xl font-bold text-amber-600 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-building"></i> School Facilities
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
+                        <i class="fa-solid fa-bus text-amber-600 text-2xl mb-2"></i>
+                        <h4 class="font-bold text-slate-800">Transportation</h4>
+                        <p class="text-xs text-slate-500 mt-1">Safe bus service covering major local routes.</p>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
+                        <i class="fa-solid fa-flask text-amber-600 text-2xl mb-2"></i>
+                        <h4 class="font-bold text-slate-800">Science Laboratory</h4>
+                        <p class="text-xs text-slate-500 mt-1">Equipped lab for physics, chemistry, and biology practicals.</p>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-xl bg-slate-50">
+                        <i class="fa-solid fa-book text-amber-600 text-2xl mb-2"></i>
+                        <h4 class="font-bold text-slate-800">Library</h4>
+                        <p class="text-xs text-slate-500 mt-1">Rich collection of course books, storybooks, and reference materials.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. CONTACT US -->
+        <section id="tab-contact" class="tab-content space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm max-w-3xl mx-auto">
+                <h2 class="text-2xl font-bold text-amber-600 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-phone"></i> Contact Us
+                </h2>
+                <div class="space-y-4 text-sm">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <strong class="text-slate-800">Address:</strong>
+                            <p class="text-slate-600">Sunrise English Boarding School Campus, Nepal</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <strong class="text-slate-800">Principal:</strong>
+                            <p class="text-slate-600">Santosh Shah</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <strong class="text-slate-800">Email Inquiry:</strong>
+                            <p class="text-slate-600">info@sunriseenglishschool.edu.np</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-center text-xs mt-auto">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>© <span id="currentYear"></span> Sunrise English Boarding School. All Rights Reserved.</p>
+            <p>Principal: Santosh Shah | Offline Capable Web Application</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Set dynamic current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // 1. ONLINE / OFFLINE STATUS DETECTION
+        function updateOnlineStatus() {
+            const statusBox = document.getElementById('connectionStatus');
+            const statusText = document.getElementById('statusText');
+
+            if (navigator.onLine) {
+                statusBox.className = "flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500 text-white shadow-sm transition-all duration-300";
+                statusText.textContent = "Online Mode";
+            } else {
+                statusBox.className = "flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-red-500 text-white shadow-sm transition-all duration-300";
+                statusText.textContent = "Offline Mode";
+            }
+        }
+
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        updateOnlineStatus(); // Initial check
+
+        // 2. TAB SWITCHING
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.classList.remove('active'));
+
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => {
+                btn.classList.remove('bg-amber-800/80', 'text-white');
+                btn.classList.add('text-amber-100');
+            });
+
+            document.getElementById('tab-' + tabId).classList.add('active');
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-amber-800/80', 'text-white');
+                activeBtn.classList.remove('text-amber-100');
+            }
+        }
+
+        // 3. NOTICE BOARD LOCALSTORAGE SYSTEM
+        const defaultNotices = [
+            { id: 1, title: "Welcome to Sunrise English Boarding School", body: "Classes are running regularly. Welcome to all students!", date: "2026-03-01" },
+            { id: 2, title: "Parent-Teacher Meeting (PTM)", body: "PTM will be held this Friday at 10:00 AM in the main hall.", date: "2026-03-10" }
+        ];
+
+        function getNotices() {
+            const data = localStorage.getItem('sebs_notices');
+            return data ? JSON.parse(data) : defaultNotices;
+        }
+
+        function renderNotices() {
+            const notices = getNotices();
+            const container = document.getElementById('noticeList');
+            container.innerHTML = "";
+
+            if (notices.length === 0) {
+                container.innerHTML = `<p class="text-sm text-slate-500">No notices posted yet.</p>`;
+                return;
+            }
+
+            notices.forEach((n, idx) => {
+                const card = document.createElement('div');
+                card.className = "p-4 bg-slate-50 border border-slate-200 rounded-xl flex justify-between items-start gap-4";
+                card.innerHTML = `
+                    <div>
+                        <span class="text-[10px] font-bold uppercase text-amber-600 bg-amber-100 px-2 py-0.5 rounded">${n.date}</span>
+                        <h4 class="font-bold text-slate-800 text-base mt-1">${n.title}</h4>
+                        <p class="text-xs text-slate-600 mt-1">${n.body}</p>
+                    </div>
+                    <button onclick="deleteNotice(${idx})" class="text-slate-400 hover:text-red-500 text-xs p-1" title="Delete Notice">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleNoticeForm() {
+            const form = document.getElementById('noticeForm');
+            form.classList.toggle('hidden');
+        }
+
+        function saveNotice() {
+            const title = document.getElementById('noticeTitle').value.trim();
+            const body = document.getElementById('noticeBody').value.trim();
+
+            if (!title || !body) {
+                alert("Please fill out all notice fields.");
+                return;
+            }
+
+            const notices = getNotices();
+            const newNotice = {
+                id: Date.now(),
+                title: title,
+                body: body,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            notices.unshift(newNotice);
+            localStorage.setItem('sebs_notices', JSON.stringify(notices));
+
+            document.getElementById('noticeTitle').value = "";
+            document.getElementById('noticeBody').value = "";
+            toggleNoticeForm();
+            renderNotices();
+        }
+
+        function deleteNotice(index) {
+            const notices = getNotices();
+            notices.splice(index, 1);
+            localStorage.setItem('sebs_notices', JSON.stringify(notices));
+            renderNotices();
+        }
+
+        // 4. STUDENT & FEE INQUIRY SYSTEM (LOCALSTORAGE)
+        const defaultStudents = [
+            { roll: "101", name: "Aarav Sharma", class: "Class 5", fee: 0 },
+            { roll: "102", name: "Suman Thapa", class: "Class 6", fee: 1200 },
+            { roll: "103", name: "Priya Gurung", class: "Class 4", fee: 450 }
+        ];
+
+        function getStudents() {
+            const data = localStorage.getItem('sebs_students');
+            return data ? JSON.parse(data) : defaultStudents;
+        }
+
+        function renderStudents(list = null) {
+            const students = list || getStudents();
+            const tbody = document.getElementById('studentTableBody');
+            tbody.innerHTML = "";
+
+            if (students.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-3 text-center text-xs text-slate-400">No student records found.</td></tr>`;
+                return;
+            }
+
+            students.forEach((s, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-100 hover:bg-slate-50";
+                tr.innerHTML = `
+                    <td class="p-3 font-semibold text-slate-700">${s.roll}</td>
+                    <td class="p-3 text-slate-800">${s.name}</td>
+                    <td class="p-3 text-slate-600 text-xs">${s.class}</td>
+                    <td class="p-3 font-medium ${s.fee > 0 ? 'text-red-600' : 'text-emerald-600'}">NPR ${s.fee}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="deleteStudent(${idx})" class="text-xs text-red-500 hover:underline">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleStudentForm() {
+            document.getElementById('studentForm').classList.toggle('hidden');
+        }
+
+        function addStudent() {
+            const name = document.getElementById('stuName').value.trim();
+            const roll = document.getElementById('stuRoll').value.trim();
+            const sClass = document.getElementById('stuClass').value.trim();
+            const fee = document.getElementById('stuFee').value;
+
+            if (!name || !roll || !sClass) {
+                alert("Please fill in Student Name, Roll No, and Class.");
+                return;
+            }
+
+            const students = getStudents();
+            students.push({
+                roll: roll,
+                name: name,
+                class: sClass,
+                fee: fee ? Number(fee) : 0
+            });
+
+            localStorage.setItem('sebs_students', JSON.stringify(students));
+
+            document.getElementById('stuName').value = "";
+            document.getElementById('stuRoll').value = "";
+            document.getElementById('stuClass').value = "";
+            document.getElementById('stuFee').value = "";
+
+            toggleStudentForm();
+            renderStudents();
+        }
+
+        function deleteStudent(index) {
+            const students = getStudents();
+            students.splice(index, 1);
+            localStorage.setItem('sebs_students', JSON.stringify(students));
+            renderStudents();
+        }
+
+        function searchStudent() {
+            const query = document.getElementById('searchRoll').value.toLowerCase().trim();
+            const students = getStudents();
+
+            if (!query) {
+                renderStudents(students);
+                return;
+            }
+
+            const filtered = students.filter(s => 
+                s.roll.toLowerCase().includes(query) || 
+                s.name.toLowerCase().includes(query)
+            );
+
+            renderStudents(filtered);
+        }
+
+        // Initialize App Data
+        window.onload = function() {
+            renderNotices();
+            renderStudents();
+        };
+    </script>
+</body>
+</html>
